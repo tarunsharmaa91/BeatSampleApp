@@ -7,8 +7,8 @@ import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.app.beatsampleapp.model.LocationResult
-import com.app.beatsampleapp.ui.adapter.VenueListAdapter
-import com.app.beatsampleapp.ui.viewmodels.ApiStatus
+import com.app.beatsampleapp.adapter.VenueListAdapter
+import com.app.beatsampleapp.viewmodels.ApiStatus
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 

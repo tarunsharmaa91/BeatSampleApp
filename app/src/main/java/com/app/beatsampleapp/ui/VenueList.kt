@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.app.beatsampleapp.databinding.VenueListFragmentBinding
-import com.app.beatsampleapp.ui.adapter.VenueListAdapter
-import com.app.beatsampleapp.ui.viewmodels.MainActivityViewModel
+import com.app.beatsampleapp.adapter.VenueListAdapter
+import com.app.beatsampleapp.viewmodels.MainActivityViewModel
 
 class VenueList : Fragment() {
     private lateinit var model: MainActivityViewModel

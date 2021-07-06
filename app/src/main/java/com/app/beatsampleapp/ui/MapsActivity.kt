@@ -17,7 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.app.beatsampleapp.R
 import com.app.beatsampleapp.databinding.ActivityMainBinding
-import com.app.beatsampleapp.ui.viewmodels.MainActivityViewModel
+import com.app.beatsampleapp.viewmodels.MainActivityViewModel
 import com.app.classify.ui.list.view.VenueList
 import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.*
@@ -177,11 +177,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         //Below code will move marker position on map and request to api will be initiated
-        mMap.setOnCameraMoveStartedListener {
-            if (marker != null) {
-                marker!!.isVisible = true
-            }
-        }
         mMap.setOnCameraMoveListener {
             if (marker != null) {
                 marker!!.position = mMap.cameraPosition.target
@@ -191,18 +186,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         mMap.setOnCameraIdleListener {
             if (marker != null && isExplorationModeEnabled) {
-                marker!!.isVisible = true
                 val location = Location(LocationManager.GPS_PROVIDER)
                 location.time = 2000
                 location.apply {
                     latitude = mMap.cameraPosition.target.latitude
                     longitude = mMap.cameraPosition.target.longitude
                 }
-                if (this.currentLocation?.latitude ?: Double != location.latitude) {
-                    Log.e(
-                        "lplp: ",
-                        this.currentLocation?.latitude.toString() + " " + location.latitude
-                    )
+                if (this.currentLocation?.latitude ?: Double != location.latitude && this.currentLocation?.longitude ?: Double != location.longitude) {
                     this.currentLocation = location
                     getNearByFoodLocations(currentLocation!!)
                 }
