@@ -8,7 +8,6 @@ import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -59,10 +58,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.mapView) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+        //Added Fragments for Nearby Venue list and selected venue
         supportFragmentManager.beginTransaction().replace(R.id.venueList, VenueList()).commit()
         supportFragmentManager.beginTransaction().replace(R.id.selectedItem, SelectedItemFragment())
             .commit()
-
+        //Added Observer for selected venue
         viewModel.selectedResult.observe(this, {
             if (it != null) {
                 val lat: Double? = it.lat
@@ -72,7 +72,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         })
 
+        //Set initial mode to exploration
         viewModel.changeModeToExploration()
+        //Added Observer for Mode Change
         viewModel.mode.observe(this, {
             isExplorationModeEnabled = (it.name == "Exploration")
             if (it.name == "Exploration") {
@@ -99,6 +101,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     }
 
+    //Below code is to ask for required permission for location update
     private fun handleGetLocation() {
         if (ContextCompat.checkSelfPermission(
                 this,
@@ -131,6 +134,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun getNearByFoodLocations(currentLocation: Location) {
         val current = LatLng(currentLocation.latitude, currentLocation.longitude)
+        //Request for nearby locations
         viewModel.refresh(currentLocation)
         setMarkerAtCurrentLocation(current)
     }
@@ -150,8 +154,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         .setMessage(getString(R.string.permission_string))
                         .setPositiveButton(getString(R.string.close)) { _, _ -> finish() }
                         .setNegativeButton(getString(R.string.allow)) { _, _ ->
-                            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                            intent.data = Uri.fromParts("package", packageName, null)
+                            val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                             startActivity(intent)
                         }
                         .setCancelable(false)
@@ -205,7 +208,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(current, 17.0f))
         val options = MarkerOptions().position(mMap.cameraPosition.target)
             .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker))
-            .title("Marker Title")
+            .title("Exploration Mode")
         marker = mMap.addMarker(options)
     }
 
@@ -237,6 +240,5 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         } else {
             viewModel.changeModeToExploration()
         }
-
     }
 }

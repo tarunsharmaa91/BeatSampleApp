@@ -7,8 +7,6 @@ e
 5app/src/main/java/com/app/beatsampleapp/model/Icon.kt,1/0/10f39983ce94121c6d877ca2e7f18f73c3b9eba6
 i
 9app/src/main/java/com/app/beatsampleapp/model/Category.kt,f/0/f01f2193a7827f879e4c170c88c18a5532e3226f
-p
-@app/src/main/java/com/app/beatsampleapp/model/ILocationResult.kt,9/e/9e47f2e2c5dc147316248978dda845a26fdb2069
 i
 9app/src/main/java/com/app/beatsampleapp/model/Location.kt,1/5/15b4edc42ecbeeb9d39e1ede0f1e9d7dcb010bc4
 v
