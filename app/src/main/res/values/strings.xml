@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BeatSampleApp</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="permission_string">This app require Location services</string>
+    <string name="close">Close</string>
+    <string name="allow">Allow</string>
+</resources>

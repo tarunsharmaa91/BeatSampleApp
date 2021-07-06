@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="permission_string">This app require Location services</string>
+    <string name="close">Close</string>
+    <string name="allow">Allow</string>
+</resources>
